@@ -1,0 +1,17 @@
+apiVersion: core.spinoperator.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: repro-3
+spec:
+  image: "ttl.sh/repro-3:1h"
+  executor: containerd-shim-spin
+  replicas: 2
+  volumeMounts:
+    - name: k8s-secret
+      mountPath: /mount/secrets
+      readOnly: true
+  volumes:
+    - name: k8s-secret
+      secret:
+        secretName: repro
+        optional: false
